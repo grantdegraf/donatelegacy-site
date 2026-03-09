@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support The Legacy Project | Women Without Fear</title>
+  <meta name="description" content="Support The Legacy Project's work in Holocaust education, cultural storytelling, and confronting modern antisemitism through film, books, and educational programming.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+
+      <a class="breadcrumb" href="https://legacyproject.co">&larr; Back to The Legacy Project</a>
+
+      <header class="hero">
+        <h1>Shape the Narrative. Strengthen the Future.</h1>
+        <p class="subhead">
+          Support The Legacy Project&#8217;s work in Holocaust education, cultural storytelling, and confronting modern antisemitism
+          through film, books, and educational programming.
+        </p>
+        <p class="micro">
+          Holocaust education is active cultural responsibility.<br>
+          Your support helps us build education and storytelling that endures.
+        </p>
+        <div class="cta">
+          <a class="btn btn--gold" href="#donor-form">Continue to Secure Donation</a>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>How your donation works (2 steps)</h2>
+        <p class="tight">
+          The Legacy Project operates under fiscal sponsorship. To ensure your donation is properly designated and we can acknowledge
+          your support, you&#8217;l do this in two quick steps:
+        </p>
+        <ol class="steps">
+          <li>Enter your contact details here (for our records and acknowledgement).</li>
+          <li>You&#8217;ll be redirected to our sponsor&#8217;s secure donation portal to complete your gift.</li>
+        </ol>
+        <div class="designation">
+          <div class="designation__label">IMPORTANT (next page)</div>
+          <div class="designation__text">
+            Please select <strong>&#8220;Other&#8221;</strong> and enter:
+            <span class="pill">The Legacy Project</span>
+          </div>
+        </div>
+        <p class="trust">
+          Donations are processed securely and are tax-deductible through our fiscal sponsor.
+        </p>
+      </section>
+
+      <section class="formWrap" id="donor-form">
+        <h2>Your details (so we can thank you)</h2>
+
+        <form id="donate-form" class="form">
+          <div class="grid">
+            <label>
+              <span>Name *</span>
+              <input type="text" name="name" autocomplete="name" required placeholder="Your full name">
+            </label>
+            <label>
+              <span>Email *</span>
+              <input type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+            </label>
+          </div>
+
+          <div class="grid">
+            <label>
+              <span>Telephone (optional)</span>
+              <input type="tel" name="telephone" autocomplete="tel" placeholder="+1 (555) 000-0000">
+            </label>
+            <label>
+              <span>Organization (optional)</span>
+              <input type="text" name="organization" autocomplete="organization" placeholder="Foundation or employer">
+            </label>
+          </div>
+
+          <p class="helper">
+            Phone is optional &#8212; email is the best way to confirm your donation and send updates.
+          </p>
+
+          <button class="btn btn--gold" type="submit" id="submitBtn">
+            Proceed to Secure Donation Page
+          </button>
+
+          <div class="confirm" id="confirm" aria-live="polite" role="status"></div>
+
+          <p class="fineprint">
+            Next step: you&#8217;ll be taken to our sponsor&#8217;s donation page. Please remember to choose <strong>&#8220;Other&#8221;</strong> and enter
+            <strong>The Legacy Project</strong>.
+          </p>
+        </form>
+      </section>
+
+      <footer class="footer">
+        The Legacy Project &bull; Women Without Fear (Book + 30-episode series) &bull;
+        <a href="mailto:grant@legacy.ngo">grant@legacy.ngo</a>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    const endpoint = "https://script.google.com/macros/s/AKfycbxWWAK6p3Pa-wx2ifO7lysbQEdUCvsa1QAA8ePw5S8p1C01WxsSmX0UYWWnWXOxelrb/exec";
+
+    async function submitDonationForm(e) {
+      e.preventDefault();
+
+      const form   = e.target;
+      const btn    = document.getElementById('submitBtn');
+      const msg    = document.getElementById('confirm');
+
+      btn.disabled    = true;
+      btn.textContent = 'Submitting\u2026';
+      msg.textContent = 'Thank you \u2014 redirecting\u2026';
+
+      const data = new FormData();
+      data.append('name',         form.name.value);
+      data.append('email',        form.email.value);
+      data.append('telephone',    form.telephone.value);
+      data.append('organization', form.organization.value);
+
+      try {
+        await fetch(endpoint, { method: 'POST', body: data });
+      } catch (err) {
+        // Non-blocking — proceed to redirect even if logging fails
+        console.warn('Logging error (non-fatal):', err);
+      }
+
+      window.location.href = 'https://nerlehoreinu.com/donate/';
+    }
+
+    document.querySelector('#donate-form')
+      .addEventListener('submit', submitDonationForm);
+  </script>
+</body>
+</html>
